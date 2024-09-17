@@ -57,6 +57,10 @@ form {
     background-color: #27ae60;
     padding: 6px;
   }
+
+  button:hover {
+    background-color: #27ae5f6a;
+  }
 }
 
 table {
@@ -113,4 +117,8 @@ table {
 }
 #cancelEditBtn {
   background-color: #e74c3c;
+}
+
+button:hover {
+  background-color: #0d633174;
 }

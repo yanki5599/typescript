@@ -18,7 +18,7 @@ export class ScooterCrudManager {
   static BASE_URL: string =
     "https://66e9773e87e4176094498ad7.mockapi.io/scooter";
 
-  public async create(scooter: Scooter): Promise<Scooter> {
+  public static async create(scooter: Scooter): Promise<Scooter> {
     const options: RequestInit = {
       method: "POST",
       body: JSON.stringify(scooter),
@@ -38,7 +38,7 @@ export class ScooterCrudManager {
     }
   }
 
-  public async getAll(): Promise<Scooter[]> {
+  public static async getAll(): Promise<Scooter[]> {
     try {
       const response = await fetch(ScooterCrudManager.BASE_URL);
 
@@ -46,13 +46,14 @@ export class ScooterCrudManager {
         throw new Error("failed to get all scooters! " + response.statusText);
 
       const allScooters: Scooter[] = await response.json();
+
       return allScooters;
     } catch (err: any) {
       throw new Error(err.message);
     }
   }
 
-  public async update(scooter: Scooter): Promise<void> {
+  public static async update(scooter: Scooter): Promise<void> {
     const options: RequestInit = {
       method: "PUT",
       body: JSON.stringify(scooter),
@@ -72,14 +73,14 @@ export class ScooterCrudManager {
     }
   }
 
-  public async delete(id: number): Promise<void> {
+  public static async delete(id: string): Promise<void> {
     const options: RequestInit = {
       method: "DELETE",
     };
 
     try {
       const response = await fetch(
-        ScooterCrudManager.BASE_URL + `${id}`,
+        ScooterCrudManager.BASE_URL + `/${id}`,
         options
       );
 
@@ -89,4 +90,59 @@ export class ScooterCrudManager {
       throw new Error(err.message);
     }
   }
+}
+
+export function createScooterElement(
+  scooter: Scooter,
+  tbody: HTMLElement,
+  editFunc: (id: string) => void,
+  removeFunc: (id: string) => void
+) {
+  const trElement: HTMLElement = document.createElement("tr");
+  trElement.id = scooter.id!;
+  trElement.append(createTdElement(scooter.serialNumber));
+  trElement.append(createTdElement(scooter.model));
+  trElement.append(createTdElement(scooter.batteryLevel));
+  trElement.append(createTdElement(scooter.imageUrl));
+  trElement.append(createTdElement(scooter.color));
+  trElement.append(createTdElement(scooter.status));
+  trElement.append(createActionButtons(scooter.id!, editFunc, removeFunc));
+  tbody.append(trElement);
+}
+
+function createActionButtons(
+  scooterId: string,
+  editFunc: (id: string) => void,
+  removeFunc: (id: string) => void
+): HTMLElement {
+  const td = document.createElement("td");
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "EDIT";
+  editBtn.classList.add("editScooterBtn");
+  editBtn.addEventListener("click", () => {
+    removeElement(scooterId);
+    editFunc(scooterId);
+  });
+
+  const removeBtn = document.createElement("button");
+  removeBtn.textContent = "REMOVE";
+  removeBtn.classList.add("removeScooterBtn");
+  removeBtn.onclick = () => removeFunc(scooterId);
+
+  const buttonsWrapperDiv = document.createElement("div") as HTMLElement;
+  buttonsWrapperDiv.classList.add("buttonsWrapper");
+  buttonsWrapperDiv.append(editBtn, removeBtn);
+  td.append(buttonsWrapperDiv);
+  return td;
+}
+
+function createTdElement(textContent: string | number): HTMLElement {
+  const td = document.createElement("td");
+  td.textContent = textContent.toString();
+  return td;
+}
+
+function removeElement(id: string): HTMLElement {
+  const elem: HTMLElement = document.getElementById(id) as HTMLElement;
+  return elem?.parentNode?.removeChild(elem)!;
 }
