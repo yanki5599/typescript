@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="headerTitle">
+        <h1 id="headerTitle">scooter manager</h1>
+      </div>
+    </header>
+    <main id="MainPage">
+      <section class="flexCenter">
+        <form id="addSoliderForm">
+          <input
+            type="text"
+            name="serialNumber"
+            placeholder="serial number"
+            required
+          />
+          <input type="text" name="model" placeholder="Model" required />
+          <input
+            min="0"
+            max="100"
+            type="number"
+            name="batteryLevel"
+            placeholder="Battery level"
+            required
+          />
+          <input type="text" name="imageUrl" placeholder="image Url" required />
+          <input
+            type="text"
+            name="color"
+            placeholder="color: (ex #3a9f3c)"
+            required
+          />
+
+          <select class="mrl-1" name="status" required>
+            <option value="available">available</option>
+            <option value="inRepair">inRepair</option>
+            <option value="unavailable">unavailable</option>
+          </select>
+          <button class="mrl-1" type="submit">Add Scooter</button>
+        </form>
+      </section>
+      <section>
+        <div class="headerTitle">
+          <h1>list of all scooters</h1>
+        </div>
+        <table id="soldiersTable">
+          <thead>
+            <tr>
+              <th><h2>SERIAL NUMBER</h2></th>
+              <th><h2>MODEL</h2></th>
+              <th><h2>BATTERY LVL</h2></th>
+              <th><h2>IMAGE</h2></th>
+              <th><h2>COLOR</h2></th>
+              <th><h2>STATUS</h2></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+    <main id="EditPage">
+      <section class="flexCenter">
+        <form id="addSoliderForm">
+          <input
+            type="text"
+            name="serialNumber"
+            placeholder="serial number"
+            required
+          />
+          <input type="text" name="model" placeholder="Model" required />
+          <input
+            min="0"
+            max="100"
+            type="number"
+            name="batteryLevel"
+            placeholder="Battery level"
+            required
+          />
+          <input type="text" name="imageUrl" placeholder="image Url" required />
+          <input
+            type="text"
+            name="color"
+            placeholder="color: (ex #3a9f3c)"
+            required
+          />
+
+          <select class="mrl-1" name="status" required>
+            <option value="available">available</option>
+            <option value="inRepair">inRepair</option>
+            <option value="unavailable">unavailable</option>
+          </select>
+          <button class="mrl-1" type="submit">Add Scooter</button>
+        </form>
+      </section>
+    </main>
+    <footer></footer>
+    <script src="script.js"></script>
+  </body>
+</html>
