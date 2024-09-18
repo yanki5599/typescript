@@ -9,7 +9,7 @@ import {
   sortTable,
   toggleOrder,
   filterTable,
-} from "./tableSortManager.js";
+} from "./tableSortAndFilter.js";
 
 //=================[ CONSTANTS ]================
 
@@ -59,7 +59,7 @@ async function refreshScooters(): Promise<void> {
 
 async function addScooter(): Promise<void> {
   const newScooter = getScooterFromForm(addScooterForm);
-  //addToLocalList();
+  addScooterForm.reset();
   await addScooterToDB(newScooter);
   await refreshTable();
 }

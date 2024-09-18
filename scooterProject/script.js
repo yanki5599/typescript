@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { ScooterCrudManager, createScooterElement, } from "./ScooterCrud.js";
-import { SortOrder, sortTable, toggleOrder, filterTable, } from "./tableSortManager.js";
+import { SortOrder, sortTable, toggleOrder, filterTable, } from "./tableSortAndFilter.js";
 //=================[ CONSTANTS ]================
 const addScooterForm = document.querySelector("#addScooterForm");
 const editScooterForm = () => document.querySelector("#editScooterForm");
@@ -38,7 +38,7 @@ function refreshScooters() {
 function addScooter() {
     return __awaiter(this, void 0, void 0, function* () {
         const newScooter = getScooterFromForm(addScooterForm);
-        //addToLocalList();
+        addScooterForm.reset();
         yield addScooterToDB(newScooter);
         yield refreshTable();
     });

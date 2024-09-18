@@ -61,6 +61,10 @@ form {
   button:hover {
     background-color: #27ae5f6a;
   }
+  input[type="color"] {
+    padding: 0;
+    width: 100%;
+  }
 }
 
 table {
