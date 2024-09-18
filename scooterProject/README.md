@@ -52,8 +52,9 @@ Scooter Manager is a web application designed for managing a fleet of scooters. 
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/scooter-manager.git
+   git clone https://github.com/yanki5599/ScootersTypescriptProject.git
    ```
+   or click https://yanki5599.github.io/typescript/scooterProject/
 2. **Navigate to the project directory**:
    cd scooter-manager
 3. **Install dependencies (if any)**:
