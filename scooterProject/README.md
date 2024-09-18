@@ -67,6 +67,6 @@ Usage
 
 ### Snapshots
 
-![alt text](sh1.png)
+![alt text](snapshots/sh1.png)
 
-![alt text](sh2.png)
+![alt text](snapshots/sh2.png)
