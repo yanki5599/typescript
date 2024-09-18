@@ -62,7 +62,7 @@ export class ScooterCrudManager {
 
     try {
       const response = await fetch(
-        ScooterCrudManager.BASE_URL + `${scooter.id}`,
+        ScooterCrudManager.BASE_URL + `/${scooter.id}`,
         options
       );
 
@@ -102,7 +102,7 @@ export function createScooterElement(
   trElement.id = scooter.id!;
   trElement.append(createTdElement(scooter.serialNumber));
   trElement.append(createTdElement(scooter.model));
-  trElement.append(createTdElement(scooter.batteryLevel));
+  trElement.append(createTdElement(scooter.batteryLevel + "%"));
   trElement.append(createTdElement(scooter.imageUrl));
   trElement.append(createTdElement(scooter.color));
   trElement.append(createTdElement(scooter.status));
@@ -120,14 +120,16 @@ function createActionButtons(
   editBtn.textContent = "EDIT";
   editBtn.classList.add("editScooterBtn");
   editBtn.addEventListener("click", () => {
-    removeElement(scooterId);
     editFunc(scooterId);
   });
 
   const removeBtn = document.createElement("button");
   removeBtn.textContent = "REMOVE";
   removeBtn.classList.add("removeScooterBtn");
-  removeBtn.onclick = () => removeFunc(scooterId);
+  removeBtn.addEventListener("click", () => {
+    removeElement(scooterId);
+    removeFunc(scooterId);
+  });
 
   const buttonsWrapperDiv = document.createElement("div") as HTMLElement;
   buttonsWrapperDiv.classList.add("buttonsWrapper");

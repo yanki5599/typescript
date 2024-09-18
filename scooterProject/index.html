@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
   <body>
     <header>
@@ -53,12 +57,30 @@
         <table id="scootersTable">
           <thead>
             <tr>
-              <th><h2>SERIAL NUMBER</h2></th>
-              <th><h2>MODEL</h2></th>
-              <th><h2>BATTERY LVL</h2></th>
-              <th><h2>IMAGE</h2></th>
-              <th><h2>COLOR</h2></th>
-              <th><h2>STATUS</h2></th>
+              <th>
+                <input type="search" placeholder="" id="" />
+                <h2>SERIAL NUMBER</h2>
+              </th>
+              <th>
+                <input type="search" placeholder="" id="" />
+                <h2>MODEL</h2>
+              </th>
+              <th>
+                <input type="search" placeholder="" id="" />
+                <h2>BATTERY LVL</h2>
+              </th>
+              <th>
+                <input type="search" placeholder="" id="" />
+                <h2>IMAGE</h2>
+              </th>
+              <th>
+                <input type="search" placeholder="" id="" />
+                <h2>COLOR</h2>
+              </th>
+              <th>
+                <input type="search" placeholder="" id="" />
+                <h2>STATUS</h2>
+              </th>
               <th><h2>ACTIONS</h2></th>
             </tr>
           </thead>
@@ -68,7 +90,7 @@
     </main>
     <main id="EditPage">
       <section class="flexCenter">
-        <form id="addSoliderForm">
+        <form id="editScooterForm">
           <input
             type="text"
             name="serialNumber"
@@ -97,7 +119,8 @@
             <option value="inRepair">inRepair</option>
             <option value="unavailable">unavailable</option>
           </select>
-          <button class="mrl-1" type="submit">Add Scooter</button>
+          <button class="mrl-1" type="submit">Save Changes</button>
+          <button id="cancelEditBtn" class="mrl-1">cancel</button>
         </form>
       </section>
     </main>

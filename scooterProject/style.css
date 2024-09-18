@@ -122,3 +122,7 @@ table {
 button:hover {
   background-color: #0d633174;
 }
+
+button:active {
+  background-color: #688c77fd;
+}

@@ -55,7 +55,7 @@ export class ScooterCrudManager {
                 headers: { "Content-type": "application/json" },
             };
             try {
-                const response = yield fetch(ScooterCrudManager.BASE_URL + `${scooter.id}`, options);
+                const response = yield fetch(ScooterCrudManager.BASE_URL + `/${scooter.id}`, options);
                 if (!response.ok)
                     throw new Error("failed to update scooter! " + response.statusText);
             }
@@ -86,7 +86,7 @@ export function createScooterElement(scooter, tbody, editFunc, removeFunc) {
     trElement.id = scooter.id;
     trElement.append(createTdElement(scooter.serialNumber));
     trElement.append(createTdElement(scooter.model));
-    trElement.append(createTdElement(scooter.batteryLevel));
+    trElement.append(createTdElement(scooter.batteryLevel + "%"));
     trElement.append(createTdElement(scooter.imageUrl));
     trElement.append(createTdElement(scooter.color));
     trElement.append(createTdElement(scooter.status));
@@ -99,13 +99,15 @@ function createActionButtons(scooterId, editFunc, removeFunc) {
     editBtn.textContent = "EDIT";
     editBtn.classList.add("editScooterBtn");
     editBtn.addEventListener("click", () => {
-        removeElement(scooterId);
         editFunc(scooterId);
     });
     const removeBtn = document.createElement("button");
     removeBtn.textContent = "REMOVE";
     removeBtn.classList.add("removeScooterBtn");
-    removeBtn.onclick = () => removeFunc(scooterId);
+    removeBtn.addEventListener("click", () => {
+        removeElement(scooterId);
+        removeFunc(scooterId);
+    });
     const buttonsWrapperDiv = document.createElement("div");
     buttonsWrapperDiv.classList.add("buttonsWrapper");
     buttonsWrapperDiv.append(editBtn, removeBtn);
