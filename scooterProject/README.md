@@ -1,15 +1,14 @@
 <!-- ⚠️ This README has been generated from the file(s) "blueprint.md" ⚠️-->
+
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#scooter-manager)
 
 # ➤ Scooter Manager
-
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#overview)
 
 ## ➤ Overview
 
 Scooter Manager is a web application designed for managing a fleet of scooters. It enables users to add, edit, delete, and view scooters along with their details, such as serial number, model, battery level, image URL, color, and status.
-
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#features)
 
@@ -21,7 +20,6 @@ Scooter Manager is a web application designed for managing a fleet of scooters. 
 - **View Scooter List**: Display all scooters in a sortable and filterable table.
 - **Responsive Design**: Optimized for different screen sizes.
 
-
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#technologies-used)
 
 ## ➤ Technologies Used
@@ -31,13 +29,11 @@ Scooter Manager is a web application designed for managing a fleet of scooters. 
 - **TypeScript**: For implementing application logic with type safety.
 - **Fetch API**: For making asynchronous requests to a mock API.
 
-
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#file-structure)
 
 ## ➤ File Structure
 
 /scooter-manager │ ├── index.html # Main HTML file ├── style.css # Styles for the application ├── script.ts # TypeScript logic for managing scooters ├── ScooterCrud.ts # Contains the Scooter interface and CRUD operations └── tableSortAndFilter.ts # Functions for sorting and filtering the scooter table
-
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#getting-started)
 
@@ -68,3 +64,9 @@ Usage
 4. Filter and Sort: Use the search inputs and click on the table headers to filter and sort the scooter list.
    API Endpoints
    This application communicates with a mock API hosted at:
+
+### Snapshots
+
+![alt text](sh1.png)
+
+![alt text](sh2.png)
