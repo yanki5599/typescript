@@ -66,7 +66,9 @@ Usage
    API Endpoints
    This application communicates with a mock API hosted at:https://66e9773e87e4176094498ad7.mockapi.io/scooter
 
-### Snapshots
+# ➤ Snapshots
+
+[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#overview)
 
 ![alt text](snapshots/sh1.png)
 
