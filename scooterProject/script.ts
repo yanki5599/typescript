@@ -28,6 +28,7 @@ const table: HTMLTableElement = document.getElementById(
   "scootersTable"
 ) as HTMLTableElement;
 
+const headerTitle = document.querySelector("#headerTitle") as HTMLElement;
 const mainPage = document.querySelector("#MainPage") as HTMLElement;
 const editPage = document.querySelector("#EditPage") as HTMLElement;
 
@@ -157,11 +158,13 @@ async function removeScooter(scooterId: string): Promise<void> {
 function showHomePage() {
   mainPage.style.display = "block";
   editPage.style.display = "none";
+  headerTitle.textContent = "SCOOTER MANAGER";
 }
 
 function showEditPage() {
   mainPage.style.display = "none";
   editPage.style.display = "block";
+  headerTitle.textContent = "EDIT SCOOTER";
 }
 
 function setFormEL(): void {

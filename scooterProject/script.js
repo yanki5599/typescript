@@ -14,6 +14,7 @@ const addScooterForm = document.querySelector("#addScooterForm");
 const editScooterForm = () => document.querySelector("#editScooterForm");
 const tbody = document.querySelector("table  tbody");
 const table = document.getElementById("scootersTable");
+const headerTitle = document.querySelector("#headerTitle");
 const mainPage = document.querySelector("#MainPage");
 const editPage = document.querySelector("#EditPage");
 let currOrder = SortOrder.Ascending;
@@ -132,10 +133,12 @@ function removeScooter(scooterId) {
 function showHomePage() {
     mainPage.style.display = "block";
     editPage.style.display = "none";
+    headerTitle.textContent = "SCOOTER MANAGER";
 }
 function showEditPage() {
     mainPage.style.display = "none";
     editPage.style.display = "block";
+    headerTitle.textContent = "EDIT SCOOTER";
 }
 function setFormEL() {
     addScooterForm.addEventListener("submit", (e) => __awaiter(this, void 0, void 0, function* () {
