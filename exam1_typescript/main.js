@@ -10,7 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const form = document.querySelector("form");
 const tableTbody = document.querySelector("tbody");
+const addTeamBtn = document.getElementById("addTeam");
 const sliders = form.getElementsByTagName("input");
+const currentTeam = {
+    PG: { el: document.getElementById("PG") },
+    SG: { el: document.getElementById("SG") },
+    SF: { el: document.getElementById("SF") },
+    PF: { el: document.getElementById("PF") },
+    C: { el: document.getElementById("C") },
+};
 let timer;
 function submitForm() {
     const searchParams = extractDataFromForm();
@@ -50,6 +58,7 @@ function setAddButtonEL(button, player) {
         const teamMemberElement = document.getElementById(`${player.position}`);
         clearPChildren(teamMemberElement);
         teamMemberElement.append(...createPlayerPElements(player));
+        currentTeam[player.position].player = player;
     });
 }
 function createPlayerPElements(player) {
@@ -82,7 +91,7 @@ function postSearch(searchParams) {
             }
             const playersList = (yield response.json());
             if (playersList.length === 0)
-                showErrorMsg("No players that match the parameters");
+                showErrorMsg("No players that match the parameters were found.");
             reloadTable(playersList);
         }
         catch (err) {
@@ -106,7 +115,41 @@ function showErrorMsg(msg) {
     document.body.append(msgDivElement);
     timer = setTimeout(() => {
         msgDivElement.remove();
-    }, 2000);
+    }, 3000);
+}
+function showSuccessMsg(msg) {
+    const msgDivElement = document.createElement("div");
+    msgDivElement.textContent = msg;
+    msgDivElement.classList.add("successDiv");
+    document.body.append(msgDivElement);
+    timer = setTimeout(() => {
+        msgDivElement.remove();
+    }, 3000);
+}
+function addTeam() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const BASE_URL = "https://nbaserver-q21u.onrender.com/api/AddTeam";
+        const players = getMyTeam();
+        const options = {
+            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            body: JSON.stringify(players),
+        };
+        try {
+            if (players.some((p) => p == null)) {
+                throw new Error("Team is not full.");
+            }
+            const response = yield fetch(BASE_URL, options);
+            if (!response.ok) {
+                throw new Error(`error posting team from server. status:${response.status}`);
+            }
+            else
+                showSuccessMsg("team added successfully");
+        }
+        catch (err) {
+            showErrorMsg(err);
+        }
+    });
 }
 window.onload = () => {
     form.addEventListener("submit", (e) => {
@@ -121,4 +164,12 @@ window.onload = () => {
             slider.title = slider.value.toString();
         });
     }
+    addTeamBtn.addEventListener("click", addTeam);
 };
+function getMyTeam() {
+    const res = [];
+    Object.keys(currentTeam).forEach((key) => {
+        res.push(currentTeam[key].player);
+    });
+    return res;
+}

@@ -1,5 +1,4 @@
 interface Player {
-  //   _id?: string;
   position: string;
   playerName: string;
   twoPercent: number;
@@ -7,12 +6,31 @@ interface Player {
   points: number;
 }
 
+interface Team {
+  PG: { el: HTMLDivElement; player?: Player };
+  SG: { el: HTMLDivElement; player?: Player };
+  SF: { el: HTMLDivElement; player?: Player };
+  PF: { el: HTMLDivElement; player?: Player };
+  C: { el: HTMLDivElement; player?: Player };
+}
+
 const form: HTMLFormElement = document.querySelector("form") as HTMLFormElement;
 const tableTbody: HTMLElement = document.querySelector("tbody") as HTMLElement;
+const addTeamBtn: HTMLButtonElement = document.getElementById(
+  "addTeam"
+) as HTMLButtonElement;
 
 const sliders = form.getElementsByTagName(
   "input"
 ) as HTMLCollectionOf<HTMLInputElement>;
+
+const currentTeam: Team = {
+  PG: { el: document.getElementById("PG") as HTMLDivElement },
+  SG: { el: document.getElementById("SG") as HTMLDivElement },
+  SF: { el: document.getElementById("SF") as HTMLDivElement },
+  PF: { el: document.getElementById("PF") as HTMLDivElement },
+  C: { el: document.getElementById("C") as HTMLDivElement },
+};
 
 let timer: number | null;
 
@@ -68,6 +86,7 @@ function setAddButtonEL(button: HTMLButtonElement, player: Player): void {
     ) as HTMLDivElement;
     clearPChildren(teamMemberElement);
     teamMemberElement.append(...createPlayerPElements(player));
+    (currentTeam as any)[player.position].player = player;
   });
 }
 function createPlayerPElements(player: Player): HTMLParagraphElement[] {
@@ -109,7 +128,7 @@ async function postSearch(searchParams: Partial<Player>): Promise<void> {
     const playersList = (await response.json()) as unknown as Player[];
 
     if (playersList.length === 0)
-      showErrorMsg("No players that match the parameters");
+      showErrorMsg("No players that match the parameters were found.");
     reloadTable(playersList);
   } catch (err: any) {
     console.error(err);
@@ -133,7 +152,44 @@ function showErrorMsg(msg: string): void {
   document.body.append(msgDivElement);
   timer = setTimeout(() => {
     msgDivElement.remove();
-  }, 2000);
+  }, 3000);
+}
+
+function showSuccessMsg(msg: string): void {
+  const msgDivElement = document.createElement("div") as HTMLDivElement;
+  msgDivElement.textContent = msg;
+  msgDivElement.classList.add("successDiv");
+
+  document.body.append(msgDivElement);
+  timer = setTimeout(() => {
+    msgDivElement.remove();
+  }, 3000);
+}
+async function addTeam(): Promise<void> {
+  const BASE_URL: string = "https://nbaserver-q21u.onrender.com/api/AddTeam";
+
+  const players: Player[] = getMyTeam();
+
+  const options: RequestInit = {
+    headers: { "Content-Type": "application/json" },
+    method: "POST",
+    body: JSON.stringify(players),
+  };
+
+  try {
+    if (players.some((p) => p == null)) {
+      throw new Error("Team is not full.");
+    }
+    const response = await fetch(BASE_URL, options);
+
+    if (!response.ok) {
+      throw new Error(
+        `error posting team from server. status:${response.status}`
+      );
+    } else showSuccessMsg("team added successfully");
+  } catch (err: any) {
+    showErrorMsg(err);
+  }
 }
 
 window.onload = () => {
@@ -150,4 +206,14 @@ window.onload = () => {
       slider.title = slider.value.toString();
     });
   }
+
+  addTeamBtn.addEventListener("click", addTeam);
 };
+
+function getMyTeam(): Player[] {
+  const res: Player[] = [];
+  Object.keys(currentTeam).forEach((key: string) => {
+    res.push((currentTeam as any)[key].player);
+  });
+  return res;
+}
