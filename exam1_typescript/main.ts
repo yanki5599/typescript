@@ -90,9 +90,7 @@ function addPlayerRow(player: Player): void {
 // sets the event listener for individual button of player row
 function setAddButtonEL(button: HTMLButtonElement, player: Player): void {
   button.addEventListener("click", () => {
-    const teamMemberElement = document.getElementById(
-      `${player.position}`
-    ) as HTMLDivElement;
+    const teamMemberElement = (currentTeam as any)[player.position].el; //document.getElementById(`${player.position}`) as HTMLDivElement;
     clearPChildren(teamMemberElement);
     teamMemberElement.append(...createPlayerPElements(player));
     (currentTeam as any)[player.position].player = player;
@@ -107,8 +105,8 @@ function createPlayerPElements(player: Player): HTMLParagraphElement[] {
   const pointsP = document.createElement("p") as HTMLParagraphElement;
 
   playerNameP.textContent = player.playerName;
-  threePercentsP.textContent = "Three Percents:" + player.threePercent;
-  twoPercentsP.textContent = "Two Percents:" + player.twoPercent;
+  threePercentsP.textContent = "Three Percents:" + player.threePercent + " %";
+  twoPercentsP.textContent = "Two Percents:" + player.twoPercent + " %";
   pointsP.textContent = "Points:" + player.points;
 
   return [playerNameP, threePercentsP, twoPercentsP, pointsP];

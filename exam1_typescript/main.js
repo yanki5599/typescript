@@ -20,19 +20,23 @@ const currentTeam = {
     C: { el: document.getElementById("C") },
 };
 let timer;
+// search for matching players
 function submitForm() {
     const searchParams = extractDataFromForm();
     postSearch(searchParams);
 }
+// gets a new list of players and refills the table with them
 function reloadTable(playersList) {
     clearTable();
     playersList.forEach((player) => {
         addPlayerRow(player);
     });
 }
+// clears tbody trs of table
 function clearTable() {
     tableTbody.replaceChildren();
 }
+// adds a tr in body with player info
 function addPlayerRow(player) {
     const tr = document.createElement("tr");
     const playerNameTd = document.createElement("td");
@@ -53,29 +57,33 @@ function addPlayerRow(player) {
     tr.append(playerNameTd, positionTd, twoPercentTd, threePercentTd, pointsTd, actionsTd);
     tableTbody.appendChild(tr);
 }
+// sets the event listener for individual button of player row
 function setAddButtonEL(button, player) {
     button.addEventListener("click", () => {
-        const teamMemberElement = document.getElementById(`${player.position}`);
+        const teamMemberElement = currentTeam[player.position].el; //document.getElementById(`${player.position}`) as HTMLDivElement;
         clearPChildren(teamMemberElement);
         teamMemberElement.append(...createPlayerPElements(player));
         currentTeam[player.position].player = player;
     });
 }
+// creates the paragraph elements for the current team view
 function createPlayerPElements(player) {
     const playerNameP = document.createElement("p");
     const threePercentsP = document.createElement("p");
     const twoPercentsP = document.createElement("p");
     const pointsP = document.createElement("p");
     playerNameP.textContent = player.playerName;
-    threePercentsP.textContent = "Three Percents:" + player.threePercent;
-    twoPercentsP.textContent = "Two Percents:" + player.twoPercent;
+    threePercentsP.textContent = "Three Percents:" + player.threePercent + " %";
+    twoPercentsP.textContent = "Two Percents:" + player.twoPercent + " %";
     pointsP.textContent = "Points:" + player.points;
     return [playerNameP, threePercentsP, twoPercentsP, pointsP];
 }
+// a general function that remove all paragraph elements from a parent element
 function clearPChildren(parent) {
     const title = parent.firstElementChild;
     parent.replaceChildren(title);
 }
+// fetches players data with post request
 function postSearch(searchParams) {
     return __awaiter(this, void 0, void 0, function* () {
         const BASE_URL = "https://nbaserver-q21u.onrender.com/api/filter";
@@ -100,6 +108,7 @@ function postSearch(searchParams) {
         }
     });
 }
+// creates a player object with form input values
 function extractDataFromForm() {
     const formValues = {};
     formValues.position = form["position"].value;
@@ -108,6 +117,7 @@ function extractDataFromForm() {
     formValues.points = +form["points"].value;
     return formValues;
 }
+// modal for showing errors with timer
 function showErrorMsg(msg) {
     const msgDivElement = document.createElement("div");
     msgDivElement.textContent = msg;
@@ -117,6 +127,7 @@ function showErrorMsg(msg) {
         msgDivElement.remove();
     }, 3000);
 }
+// modal for showing success messages with timer
 function showSuccessMsg(msg) {
     const msgDivElement = document.createElement("div");
     msgDivElement.textContent = msg;
@@ -126,6 +137,7 @@ function showSuccessMsg(msg) {
         msgDivElement.remove();
     }, 3000);
 }
+// adding team with post request
 function addTeam() {
     return __awaiter(this, void 0, void 0, function* () {
         const BASE_URL = "https://nbaserver-q21u.onrender.com/api/AddTeam";
@@ -151,6 +163,15 @@ function addTeam() {
         }
     });
 }
+// returns a list of players in the current team
+function getMyTeam() {
+    const res = [];
+    Object.keys(currentTeam).forEach((key) => {
+        res.push(currentTeam[key].player);
+    });
+    return res;
+}
+// setting things up when page reloads
 window.onload = () => {
     form.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -166,10 +187,3 @@ window.onload = () => {
     }
     addTeamBtn.addEventListener("click", addTeam);
 };
-function getMyTeam() {
-    const res = [];
-    Object.keys(currentTeam).forEach((key) => {
-        res.push(currentTeam[key].player);
-    });
-    return res;
-}
