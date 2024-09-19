@@ -12,23 +12,19 @@
       <section id="teamDisplay">
         <h1 class="sectionTitle">My Fantasy Team</h1>
         <div id="teamGroup">
-          <div class="teamMemberBlock">
+          <div class="teamMemberBlock" id="PG">
             <h4 class="playerTypeName">Point Guard</h4>
-            <!-- <p>Player name</p>
-            <p>Three Percents:</p>
-            <p>Two name:</p>
-            <p>Points:</p> -->
           </div>
-          <div class="teamMemberBlock">
+          <div class="teamMemberBlock" id="SG">
             <h4 class="playerTypeName">Shooting Guard</h4>
           </div>
-          <div class="teamMemberBlock">
+          <div class="teamMemberBlock" id="SF">
             <h4 class="playerTypeName">Small Forward</h4>
           </div>
-          <div class="teamMemberBlock">
+          <div class="teamMemberBlock" id="PF">
             <h4 class="playerTypeName">Power Forward</h4>
           </div>
-          <div class="teamMemberBlock">
+          <div class="teamMemberBlock" id="C">
             <h4 class="playerTypeName">Center</h4>
           </div>
         </div>
@@ -47,6 +43,8 @@
             <div class="sliderWrapper">
               <span class="sliderLabel">Points</span>
               <input
+                min="0"
+                max="20000"
                 type="range"
                 name="points"
                 id="pointsSlider"
@@ -56,6 +54,8 @@
             <div class="sliderWrapper">
               <span class="sliderLabel">Field Goal %</span>
               <input
+                min="0"
+                max="100"
                 type="range"
                 name="twoPercent"
                 id="FieldGoalSlider"
@@ -65,6 +65,8 @@
             <div class="sliderWrapper">
               <span class="sliderLabel">3-point %</span>
               <input
+                min="0"
+                max="100"
                 type="range"
                 name="threePercent"
                 id="3-pointSlider"
@@ -84,21 +86,12 @@
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>player name</td>
-                <td>position</td>
-                <td>11234</td>
-                <td>56</td>
-                <td>54</td>
-                <td><button>add player to current team</button></td>
-              </tr>
-            </tbody>
+            <tbody></tbody>
           </table>
         </div>
       </section>
     </main>
 
-    <script src="main.ts"></script>
+    <script src="main.js"></script>
   </body>
 </html>
