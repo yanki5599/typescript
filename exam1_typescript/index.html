@@ -7,8 +7,83 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header><h1></h1></header>
-    <main></main>
+    <header><h1>NBA FANTASY 2014-2024</h1></header>
+    <main>
+      <section id="teamDisplay">
+        <h1 class="sectionTitle">My Fantasy Team</h1>
+        <div id="teamGroup">
+          <div class="teamMemberBlock">
+            <span class="playerTypeName"> Guard</span>
+          </div>
+          <div class="teamMemberBlock">
+            <span class="playerTypeName">Shooting Guard</span>
+          </div>
+          <div class="teamMemberBlock">
+            <span class="playerTypeName">Small Forward</span>
+          </div>
+          <div class="teamMemberBlock">
+            <span class="playerTypeName">Power Forward</span>
+          </div>
+          <div class="teamMemberBlock">
+            <span class="playerTypeName">Center</span>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h1 class="sectionTitle">NBA Player Search</h1>
+        <div>
+          <form>
+            <select name="playerType" id="playerTypeSelect">
+              <option value="PG">PG</option>
+              <option value="SG">SG</option>
+              <option value="SF">SF</option>
+              <option value="PF">PF</option>
+              <option value="C">C</option>
+            </select>
+            <div>
+              <span class="sliderLabel">Points</span>
+              <input
+                type="range"
+                name="points"
+                id="pointsSlider"
+                title="Points"
+              />
+            </div>
+            <div>
+              <span class="sliderLabel">Field Goal %</span>
+              <input
+                type="range"
+                name="FieldGoal"
+                id="FieldGoalSlider"
+                title="Field Goal %"
+              />
+            </div>
+            <div>
+              <span class="sliderLabel">3-point %</span>
+              <input
+                type="range"
+                name="3-point"
+                id="3-pointSlider"
+                title="3-point %"
+              />
+            </div>
+            <button type="submit">Search Player</button>
+          </form>
+          <table>
+            <thead>
+              <tr>
+                <th>Player</th>
+                <th>Position</th>
+                <th>Points</th>
+                <th>FG%</th>
+                <th>3P%</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </section>
+    </main>
 
     <script src="main.ts"></script>
   </body>
