@@ -14,6 +14,8 @@ const sliders = form.getElementsByTagName(
   "input"
 ) as HTMLCollectionOf<HTMLInputElement>;
 
+let timer: number | null;
+
 function submitForm(): void {
   const searchParams: Partial<Player> = extractDataFromForm();
 
@@ -105,11 +107,13 @@ async function postSearch(searchParams: Partial<Player>): Promise<void> {
     }
 
     const playersList = (await response.json()) as unknown as Player[];
-    console.log(`playerlist`, playersList);
 
+    if (playersList.length === 0)
+      showErrorMsg("No players that match the parameters");
     reloadTable(playersList);
   } catch (err: any) {
     console.error(err);
+    showErrorMsg(err);
   }
 }
 function extractDataFromForm(): Partial<Player> {
@@ -120,10 +124,21 @@ function extractDataFromForm(): Partial<Player> {
   formValues.points = +form["points"].value;
   return formValues;
 }
+
+function showErrorMsg(msg: string): void {
+  const msgDivElement = document.createElement("div") as HTMLDivElement;
+  msgDivElement.textContent = msg;
+  msgDivElement.classList.add("errorDiv");
+
+  document.body.append(msgDivElement);
+  timer = setTimeout(() => {
+    msgDivElement.remove();
+  }, 2000);
+}
+
 window.onload = () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log("submit evfent");
     submitForm();
   });
 

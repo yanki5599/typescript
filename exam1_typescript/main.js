@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const form = document.querySelector("form");
 const tableTbody = document.querySelector("tbody");
 const sliders = form.getElementsByTagName("input");
+let timer;
 function submitForm() {
     const searchParams = extractDataFromForm();
     postSearch(searchParams);
@@ -80,11 +81,13 @@ function postSearch(searchParams) {
                 throw new Error(`error fetching data from server. status:${response.status}`);
             }
             const playersList = (yield response.json());
-            console.log(`playerlist`, playersList);
+            if (playersList.length === 0)
+                showErrorMsg("No players that match the parameters");
             reloadTable(playersList);
         }
         catch (err) {
             console.error(err);
+            showErrorMsg(err);
         }
     });
 }
@@ -96,10 +99,18 @@ function extractDataFromForm() {
     formValues.points = +form["points"].value;
     return formValues;
 }
+function showErrorMsg(msg) {
+    const msgDivElement = document.createElement("div");
+    msgDivElement.textContent = msg;
+    msgDivElement.classList.add("errorDiv");
+    document.body.append(msgDivElement);
+    timer = setTimeout(() => {
+        msgDivElement.remove();
+    }, 2000);
+}
 window.onload = () => {
     form.addEventListener("submit", (e) => {
         e.preventDefault();
-        console.log("submit evfent");
         submitForm();
     });
     for (const slider of sliders) {
